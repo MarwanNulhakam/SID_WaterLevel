@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class JsonClass {
     
     @JsonProperty("communities_villages")
@@ -38,6 +39,5 @@ public class JsonClass {
     public String getWaterFunctioning(){
         return water_functioning;
     }
-   
+    
 }
-

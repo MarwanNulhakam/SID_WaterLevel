@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +46,7 @@ public class Loader {
                 community.add(temp);
             }
             
-            if (data.get(i).getWaterFunctioning().equalsIgnoreCase("no"))
+            if (!data.get(i).getWaterFunctioning().equalsIgnoreCase("yes"))
                 temp.unusableIncrease();
             else
                 temp.usableIncrease();
@@ -59,10 +60,10 @@ public class Loader {
         if(!communityGroup.isEmpty()){
             int total = 0, unused = 0, functional = 0;
             
-            System.out.println("\n\ntotal functional water source = "+functional);
             for(int i=0;i<communityGroup.size();i++){
                 functional+=communityGroup.get(i).getNumberOfUsable();
             }
+            System.out.println("\n\ntotal functional water source = "+functional);
             
             System.out.println("number of water point per community :");
             for(int i=0;i<communityGroup.size();i++){
@@ -72,8 +73,11 @@ public class Loader {
             }
             
             System.out.println("\n\npercentage of unused water source :");
+            double temps;
             for(int i=0;i<communityGroup.size();i++){
-                System.out.println(communityGroup.get(i).getGroupName()+" : "+(((double)communityGroup.get(i).getNumberOfUnusable() / communityGroup.get(i).getNumberOfEntity())*100));
+                temps = (((double)communityGroup.get(i).getNumberOfUnusable()/communityGroup.get(i).getNumberOfEntity())*100);
+                System.out.println(communityGroup.get(i).getGroupName()+" : "+ 
+                        (new DecimalFormat((double)(temps-(int)temps)>0? "#0.00" : "#0.0").format(temps)));
             }
             
         }
